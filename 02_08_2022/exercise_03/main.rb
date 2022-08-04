@@ -2,7 +2,7 @@ require 'bundler/inline'
 
 gemfile do
   source 'https://rubygems.org'
-  gem "minitest"
+  gem 'minitest'
 end
 
 require 'minitest/autorun'
@@ -68,5 +68,24 @@ class MainTest < Minitest::Test
 end
 
 class Main
+  def initialize(height)
+    @height = height
+    @pass_id = nil
+  end
 
+  def height
+    @height
+  end
+
+  def pass_id
+    @pass_id
+  end
+
+  def revoke_pass!
+    @pass_id = nil
+  end
+
+  def issue_pass!(value)
+    @pass_id = value
+  end
 end
