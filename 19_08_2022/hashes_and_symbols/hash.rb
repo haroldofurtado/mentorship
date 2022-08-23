@@ -16,7 +16,8 @@ menu = <<~MENU
   1 - Inserir matéria com nota
   2 - Recuperar matéria e sua nota
   3 - Listar todas as matérias
-  4 - Exit
+  4 - Excluir matéria
+  5 - Exit
 MENU
 
 materias = {}
@@ -27,11 +28,9 @@ InserirMateria = ->(materia, nota) {
 }
 
 RecuperarMateria = lambda {|materia|
-  if materias[materia].nil?
-    puts 'Presta atenção ai amigão, essa matéria não foi ainda cadastrada!'
-  else
-    puts "A nota da materia #{materia} é: #{materias[materia]}"
-  end
+  return puts 'Presta atenção ai amigão, essa matéria não foi ainda cadastrada!' if materias.fetch(materia, 'not found') == 'not found'
+  nota = materias.fetch(materia)
+  puts "A nota da matéria #{materia} é: #{nota}"
 }
 
 ListarMaterias = ->{
@@ -39,6 +38,12 @@ ListarMaterias = ->{
     puts "A nota de #{chave} é: #{valor}"
     puts
   end
+}
+
+ExcluirMateria = -> (materia) {
+  return puts 'Matéria não encontrada' if materias[materia].nil?
+  materias.delete_if {|k, v| k == materia }
+  puts "A matéria #{materia} foi excluída"
 }
 
 loop do
@@ -59,6 +64,10 @@ loop do
   when '3'
     ListarMaterias.call
   when '4'
+    puts 'Digite a matéria a ser excluída: '
+    materia = gets.chomp
+    ExcluirMateria.call(materia)
+  when '5'
     break (puts 'Até logo!')
   else
     puts 'Preste atenção no que digita...'
