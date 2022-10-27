@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'debug', require: true
+gem 'httparty', require: true
+gem 'json', require: true
